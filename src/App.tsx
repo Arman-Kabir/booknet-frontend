@@ -1,7 +1,9 @@
+import MainLayout from "./layouts/MainLayout"
+
 function App() {
   return (
     <>
-      <h2 className='text-white bg-black'>First </h2>
+      <MainLayout></MainLayout>
     </>
   )
 }
