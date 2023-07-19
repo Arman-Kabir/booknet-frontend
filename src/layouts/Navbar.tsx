@@ -16,6 +16,7 @@ export default function Navbar() {
             <div className="flex items-center	">
                 <Button variant="outline" className="text-black">Login</Button>
             </div>
+            
         </div>
     )
 }
