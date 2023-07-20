@@ -1,12 +1,17 @@
+import { IBook } from "@/types/globalTypes";
 import { useEffect, useState } from "react";
 
 function Home() {
-    const [data,setData] = useState('');
+    const [data,setData] = useState<IBook[]>([]);
     console.log(data);
+
     useEffect(()=>{
         fetch('http://localhost:5001/api/v1/books')
         .then((res)=>res.json())
-        .then((data)=>setData(data));
+        .then((data:IBook[])=>setData(data))
+        .catch((error)=>{
+            console.log('Error fetching data',error)
+        })
     },[]);
     return (
         <div className="w-9/12 mx-auto bg-slate-500">
