@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 
 function Home() {
     const [data, setData] = useState<IBook[]>([]);
-    console.log(data);
-    let booksData;
+    // console.log(data);
+    const booksData = data?.data;
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    booksData = data?.data;
+    
+    // console.log(booksData);
 
 
     useEffect(() => {
@@ -25,7 +26,7 @@ function Home() {
     return (
         <div className="w-9/12 mx-auto">
             <h2 className="p-5 text-center text-4xl text-purple-600 font-black">Recently Added Books</h2>
-            <AllBooks></AllBooks>
+            <AllBooks books={booksData}></AllBooks>
         </div>
     )
 }
