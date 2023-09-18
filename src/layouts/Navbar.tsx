@@ -10,7 +10,7 @@ export default function Navbar() {
             <div className="flex items-center	">
                 <ul className="flex">
                     <li className="pr-5"> <Link to='/'>Home</Link> </li>
-                    <li> <Link to='/books'>books</Link> </li>
+                    <li> <Link to='/all-books'>All books</Link> </li>
                 </ul>                
             </div>
             <div className="flex items-center	">
