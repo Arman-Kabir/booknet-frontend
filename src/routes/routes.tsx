@@ -12,13 +12,14 @@ const routes = createBrowserRouter([
             {
                 index:true,
                 element: <Home></Home>
+            },
+            {
+                path:'/all-books',
+                element:<AllBooks></AllBooks>
             }
         ]
     },
-    {
-        path:'/all-books',
-        element:<AllBooks></AllBooks>
-    }
+    
 ]);
 
 export default routes;

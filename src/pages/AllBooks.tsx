@@ -1,19 +1,29 @@
 import { IBook } from "@/types/globalTypes";
-import SingleBook from "../components/SingleBook";
 import { useGetBooksQuery } from "@/redux/api/apiSlice";
+import BookCard from "../components/BookCard";
 
-function AllBooks() {
+ function AllBooks() {
   const {data,isLoading,error} = useGetBooksQuery(undefined);
+
+  if(isLoading){
+    return <p>Loading...</p>
+  }
+  if(error){
+    // return <div>Error:{error}</div>
+  }
   // console.log(books);
-  console.log(data);
+  // console.log(data,isLoading,error);
+  const books = data?.data;
+  // console.log(data.data);
+
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 pt-6">
-        ALl Books
-        {/* {books?.map((book: IBook) => (
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 pt-6">
+        {/* ALl Books */}
+        {books?.map((book: IBook) => (
           // console.log(book);
-          <SingleBook book={book} key={book._id}></SingleBook>
-        ))} */}
+          <BookCard book={book} key={book._id}></BookCard>
+        ))}
       </div>
     </div>
   )

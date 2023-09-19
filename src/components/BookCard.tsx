@@ -1,29 +1,28 @@
 import { IBook } from "@/types/globalTypes";
+import { Card, CardContent, CardHeader, } from "./ui/card";
 
-interface IProps {
-    book: IBook;
+interface IProps{
+    book:IBook
 }
 
-function BookCard({ book }: IProps) {
+const BookCard = ({ book}:IProps) => {
     console.log(book);
     return (
-        <div>
-            {/* flex flex-col items-center */}
-            <div className="p-5">
-                
-                <div className="">
-                {/* bookCard-image */}
-                    <img className="h-96 w-full" src={book.image} alt="" />
-                </div>
-                <h3 className="text-2xl font-bold text-center text-purple-600 pt-3">{book.title}</h3>
-                <p className="text-purple-400 text-center text-xl">Written By : {book.author}</p>
+        <Card className="">
 
-                <div className="flex justify-around text-xl text-purple-400">                    
-                    <p className="">{book.genre}</p>
-                    <p className="">{book.publication_date}</p>
-                </div>
+            <div className="aspect-w-7 aspect-h-6">
+                
+                <img className="object-fit shadow-lg hover:shadow-blue-300 rounded-lg" src={book?.image} alt="" height={200} />
             </div>
-        </div>
+            <CardHeader className="text-center py-1">{book.title}</CardHeader>
+            <p className="text-center text-slate-400">By <span>{book?.author}</span></p>
+
+            <CardContent className="flex justify-around">
+                <p>{book.genre}</p>
+                <p>{book.publication_date}</p>
+            </CardContent>
+
+        </Card>
     )
 }
 
