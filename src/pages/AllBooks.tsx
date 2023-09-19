@@ -1,5 +1,5 @@
 import { IBook } from "@/types/globalTypes";
-import SingleBook from "./SingleBook";
+import SingleBook from "../components/SingleBook";
 
 function AllBooks({ books }) {
   // console.log(books);

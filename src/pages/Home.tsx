@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import AllBooks from "@/components/AllBooks";
+import AllBooks from "@/pages/AllBooks";
 import BookCard from "@/components/BookCard";
 import { IBook } from "@/types/globalTypes";
 import { useEffect, useState } from "react";

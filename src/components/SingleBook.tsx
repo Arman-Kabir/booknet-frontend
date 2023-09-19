@@ -1,6 +1,11 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { IBook } from "@/types/globalTypes";
+import { Card, CardContent, CardHeader, } from "./ui/card";
 
-const SingleBook = ({ book}) => {
+interface IProps{
+    book:IBook
+}
+
+const SingleBook = ({ book}:IProps) => {
     console.log(book);
     return (
         <Card className="">
