@@ -13,7 +13,7 @@ import BookCard from "../components/BookCard";
   }
   // console.log(books);
   // console.log(data,isLoading,error);
-  const books = data?.data;
+  const books = data?.data as IBook[];
   // console.log(data.data);
 
   return (
