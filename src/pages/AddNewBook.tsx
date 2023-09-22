@@ -35,7 +35,7 @@ const AddNewBook = () => {
 
                     <div className="flex  items-center">
                         <p className="text-xl font-semibold text-indigo-500">Genre</p>
-                        <input className="border-2 w-1/2 block mx-auto" type="number" {...register("genre", { required: true })} />
+                        <input className="border-2 w-1/2 block mx-auto"  {...register("genre", { required: true })} />
                     </div>
 
                     <div className="flex  items-center">

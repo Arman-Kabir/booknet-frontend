@@ -25,7 +25,9 @@ function AllBooks() {
   if(inputValue){
     
     books = books.filter((book)=>(
-      book.title.toLowerCase().includes(inputValue.toLowerCase())
+      book.title.toLowerCase().includes(inputValue.toLowerCase()) ||
+      book.author.toLowerCase().includes(inputValue.toLowerCase()) ||
+      book.genre.toLowerCase().includes(inputValue.toLowerCase())
     ))
 
     console.log(books);
