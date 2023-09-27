@@ -1,6 +1,5 @@
-// import { Input } from "@/components/ui/input";
-// import { Label } from "@/components/ui/label";
 
+import { usePostBookMutation } from "@/redux/api/apiSlice"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 interface IFormInput {
@@ -11,9 +10,14 @@ interface IFormInput {
 }
 
 const AddNewBook = () => {
+    const [postBook, { isLoading, isError, isSuccess }] = usePostBookMutation();
 
-    const { register, handleSubmit } = useForm<IFormInput>()
-    const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+    const { register, handleSubmit } = useForm<IFormInput>();
+
+    const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+        const result = await postBook(data);
+        console.log(result);
+    };
 
     return (
         <div>

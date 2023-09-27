@@ -1,7 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { app } from "@/firebase-config";
 
 export default function Navbar() {
+    const auth = getAuth(app);
+    onAuthStateChanged(auth,(user)=>{
+        console.log(user);
+    });
+
     return (
         <div className="w-full px-20 bg-neutral-950 text-white h-16 flex justify-between">
             <div className="flex items-center">
@@ -14,7 +21,7 @@ export default function Navbar() {
                 </ul>                
             </div>
             <div className="flex items-center	">
-                <Button variant="outline" className="text-black">Login</Button>
+                <Link to={'/login'}><Button variant="outline" className="text-black">Login</Button></Link>
             </div>
             
         </div>
