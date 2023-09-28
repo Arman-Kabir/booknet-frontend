@@ -1,13 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, } from "firebase/auth";
 import { app } from "@/firebase-config";
+import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
+
+const auth = getAuth(app);
 
 export default function Navbar() {
-    const auth = getAuth(app);
-    onAuthStateChanged(auth,(user)=>{
-        console.log(user);
-    });
+
+    const [user, loading, error] = useAuthState(auth);
+
+    const [signOut] = useSignOut(auth);
+    console.log(user);
+
 
     return (
         <div className="w-full px-20 bg-neutral-950 text-white h-16 flex justify-between">
@@ -18,13 +23,23 @@ export default function Navbar() {
                 <ul className="flex">
                     <li className="pr-5"> <Link to='/'>Home</Link> </li>
                     <li> <Link to='/all-books'>All books</Link> </li>
-                </ul>                
+                </ul>
             </div>
             <div className="flex items-center	">
-                <Link to={'/login'}><Button variant="outline" className="text-black">Login</Button></Link>
+                {
+                    user ?
+                        <div className="flex space-x-2">
+                            <Button onClick={() => signOut()} variant="outline" className="text-black">Logout</Button>
+
+                            <Link to={`/addnew-book`}><Button variant="outline" className="text-black">Add New Book</Button></Link>
+                        </div>
+                        :
+                        <Link to={`/login`}> <Button variant="outline" className="text-black">Login</Button>
+                        </Link>
+                }
             </div>
-            
-        </div>
+
+        </div >
     )
 }
 

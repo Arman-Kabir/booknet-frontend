@@ -1,20 +1,33 @@
 
+import { app } from "@/firebase-config";
 import { usePostBookMutation } from "@/redux/api/apiSlice"
-import { SubmitHandler, useForm } from "react-hook-form"
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+const auth = getAuth(app);
 
 interface IFormInput {
-    title: string
-    author: string
-    genre: string
-    publication_date: string
+    title: string,
+    author: string,
+    genre: string,
+    publication_date: string,
+    added_by:string,
+    image?:string
 }
 
 const AddNewBook = () => {
     const [postBook, { isLoading, isError, isSuccess }] = usePostBookMutation();
 
+    const [user, loading, error] = useAuthState(auth);
+
     const { register, handleSubmit } = useForm<IFormInput>();
 
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+        // console.log(data);
+        // console.log(user?.email);
+        data.added_by = user?.email;
+        // console.log(data);
         const result = await postBook(data);
         console.log(result);
     };
@@ -40,6 +53,10 @@ const AddNewBook = () => {
                     <div className="flex  items-center">
                         <p className="text-xl font-semibold text-indigo-500">Genre</p>
                         <input className="border-2 w-1/2 block mx-auto"  {...register("genre", { required: true })} />
+                    </div>
+                    <div className="flex  items-center">
+                        <p className="text-xl font-semibold text-indigo-500">Image Url</p>
+                        <input className="border-2 w-1/2 block mx-auto"  {...register("image", { required: true })} />
                     </div>
 
                     <div className="flex  items-center">
