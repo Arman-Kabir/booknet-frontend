@@ -1,4 +1,4 @@
-import { useGetSingleBookQuery } from "@/redux/api/apiSlice";
+import { useEditBookMutation, useGetSingleBookQuery } from "@/redux/api/apiSlice";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom"
 
@@ -16,7 +16,9 @@ interface IFormInput {
 const EditBook = () => {
   const { id } = useParams();
   const { register, handleSubmit } = useForm<IFormInput>();
+  
   const { data, isLoading } = useGetSingleBookQuery(id);
+  const [EditBook] = useEditBookMutation();
 
   if (isLoading) {
     return <div className="bg-zinc-500">Loading...</div>
@@ -28,8 +30,8 @@ const EditBook = () => {
     // console.log(user?.email);
     // data.added_by = user?.email;
     console.log(data);
-    // const result = await postBook(data);
-    // console.log(result);
+    const result = await EditBook(id,data);
+    console.log(result);
   };
 
   console.log(data);
