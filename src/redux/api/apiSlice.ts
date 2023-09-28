@@ -20,7 +20,7 @@ export const api = createApi({
         editBook:builder.mutation({
             query:({id,data})=>({
                 url:`/books/${id}`,
-                method:'PATCH',
+                method:'POST',
                 body:data
             })
         })

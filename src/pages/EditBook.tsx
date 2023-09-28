@@ -16,7 +16,7 @@ interface IFormInput {
 const EditBook = () => {
   const { id } = useParams();
   const { register, handleSubmit } = useForm<IFormInput>();
-  
+
   const { data, isLoading } = useGetSingleBookQuery(id);
   const [EditBook] = useEditBookMutation();
 
@@ -29,8 +29,12 @@ const EditBook = () => {
     // console.log(data);
     // console.log(user?.email);
     // data.added_by = user?.email;
-    console.log(data);
-    const result = await EditBook(id,data);
+    const options={
+      id:id,
+      data:data
+    }
+    console.log(options);
+    const result = await EditBook(options);
     console.log(result);
   };
 
