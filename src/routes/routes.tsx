@@ -2,6 +2,7 @@ import App from "@/App";
 import AddNewBook from "@/pages/AddNewBook";
 import AllBooks from "@/pages/AllBooks";
 import BookDetails from "@/pages/BookDetails";
+import EditBook from "@/pages/EditBook";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import { createBrowserRouter } from "react-router-dom";
@@ -31,6 +32,10 @@ const routes = createBrowserRouter([
             {
                 path:'/login',
                 element:<Login></Login>
+            },
+            {
+                path:'/edit-book/:id',
+                element:<EditBook></EditBook>
             },
 
         ]

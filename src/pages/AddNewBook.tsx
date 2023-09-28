@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 const auth = getAuth(app);
 
 interface IFormInput {
+    
     title: string,
     author: string,
     genre: string,
