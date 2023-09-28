@@ -9,13 +9,14 @@ function AllBooks() {
   const [inputValue,setInputValue] = useState<string>('');
   console.log(inputValue);
   const { data, isLoading, error } = useGetBooksQuery(undefined);
+  console.log(data);
   if (isLoading) {
     return <p>Loading...</p>
   }
   if (error) {
     // return <div>Error:{error}</div>
   }
-  let books = data?.data as IBook[];
+  let books = data as IBook[];
 
   const searchKey = (event: FormEvent<HTMLFormElement>) => {
     // console.log(event.target.value);

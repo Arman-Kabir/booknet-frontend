@@ -6,11 +6,12 @@ const BookDetails = () => {
   const { id } = useParams();
   console.log(id);
   const { data, isLoading, error } = useGetSingleBookQuery(id);
+  console.log(data);
 
   if (isLoading) {
     return <div className="bg-zinc-500">Loading...</div>
   }
-  const book = data.data[0];
+  const book = data;
   console.log(book);
 
   return (
@@ -21,10 +22,10 @@ const BookDetails = () => {
       </div>
 
       <div className="w-1/2 text-center space-y-4">
-        <p className="text-3xl  font-bold">{book.title}</p>
+        <p className="text-3xl  font-bold">{book?.title}</p>
         <p className=" text-slate-400">Written By <span>{book?.author}</span></p>
-        <p>Genre:{book.genre}</p>
-        <p>Publication Date{book.publication_date}</p>
+        <p>Genre:{book?.genre}</p>
+        <p>Publication Date{book?.publication_date}</p>
         <div>
           <p>Reviews</p>
         </div>

@@ -5,6 +5,7 @@ export interface IBook{
     genre:string;
     publication_date:number;
     image:string;
+    reviews:string[];
     added_by:string | null;
 
 }
