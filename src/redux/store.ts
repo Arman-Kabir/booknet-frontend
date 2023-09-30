@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { api } from './api/apiSlice';
+import listSlice from './features/wishlist/listSlice';
 
 const store = configureStore({
     reducer: {
-      
+        list:listSlice,
         [api.reducerPath]: api.reducer
     },
 

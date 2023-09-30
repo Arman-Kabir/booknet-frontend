@@ -1,13 +1,21 @@
 import { IBook } from "@/types/globalTypes";
 import { Card, CardContent, CardHeader, } from "./ui/card";
 import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
+import { addToWishlist } from "@/redux/features/wishlist/listSlice";
+import { useDispatch } from "react-redux";
 
 interface IProps {
     book: IBook
 }
 
 const BookCard = ({ book }: IProps) => {
-    // console.log(book);
+    const dispatch = useDispatch();
+    console.log(book);
+
+    const handleAddToWishlist = (book: IBook) => {
+        dispatch(addToWishlist(book));
+    }
     return (
         <Card className="">
 
@@ -20,9 +28,13 @@ const BookCard = ({ book }: IProps) => {
 
             <p className="text-center text-slate-400">By <span>{book?.author}</span></p>
 
-            <CardContent className="flex justify-around">
+            <CardContent className="flex space-x-2 items-center">
                 <p>{book.genre}</p>
                 <p>{book.publication_date}</p>
+                <Button onClick={() => handleAddToWishlist(book)} className="text-red-300">
+                    Add to wishlist
+                </Button>
+
             </CardContent>
 
         </Card>
