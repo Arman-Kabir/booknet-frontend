@@ -5,13 +5,16 @@ import { Button } from "./ui/button";
 import { addToWishlist } from "@/redux/features/wishlist/listSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "@/redux/hooks";
+import { addToReading } from "@/redux/features/reading/readingSlice";
 
 interface IProps {
     book: IBook
 }
 
 const BookCard = ({ book }: IProps) => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     console.log(book);
 
     const handleAddToWishlist = (book: IBook) => {
@@ -20,8 +23,8 @@ const BookCard = ({ book }: IProps) => {
     }
 
     const handleAddToReadinglist = (book: IBook) => {
-        // dispatch(addToWishlist(book));
-        toast("book added to reading list");
+        dispatch(addToReading(book));
+        // toast("book added to reading list");
     }
     return (
         <Card className="">

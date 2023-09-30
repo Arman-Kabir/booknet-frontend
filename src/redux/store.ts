@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { api } from './api/apiSlice';
 import listSlice from './features/wishlist/listSlice';
+import readingSlice from './features/reading/readingSlice';
 
 const store = configureStore({
     reducer: {
-        list:listSlice,
+        list: listSlice,
+        reading: readingSlice,
         [api.reducerPath]: api.reducer
     },
 
