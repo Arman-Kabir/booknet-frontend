@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { addToWishlist } from "@/redux/features/wishlist/listSlice";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 interface IProps {
     book: IBook
@@ -15,6 +16,12 @@ const BookCard = ({ book }: IProps) => {
 
     const handleAddToWishlist = (book: IBook) => {
         dispatch(addToWishlist(book));
+        // toast("book added to wishlist");
+    }
+
+    const handleAddToReadinglist = (book: IBook) => {
+        // dispatch(addToWishlist(book));
+        toast("book added to reading list");
     }
     return (
         <Card className="">
@@ -31,11 +38,17 @@ const BookCard = ({ book }: IProps) => {
             <CardContent className="flex space-x-2 items-center">
                 <p>{book.genre}</p>
                 <p>{book.publication_date}</p>
-                <Button onClick={() => handleAddToWishlist(book)} className="text-red-300">
-                    Add to wishlist
-                </Button>
+
 
             </CardContent>
+            <div className="flex justify-around ">
+                <Button onClick={() => handleAddToWishlist(book)} className="text-red-300 px-2">
+                    Add to wishlist
+                </Button>
+                <Button onClick={() => handleAddToReadinglist(book)} className="text-red-300 px-2">
+                    Add to Readinglist
+                </Button>
+            </div>
 
         </Card>
     )
