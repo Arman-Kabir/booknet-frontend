@@ -4,12 +4,12 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
-export interface listState {
+export interface readingState {
     books: IBook[],
     total: number
 }
 
-const initialState: listState = {
+const initialState: readingState = {
     books: [],
     total: 0
 }
@@ -29,13 +29,17 @@ export const listSlice = createSlice({
                 state.books.push({ ...action.payload });
                 state.total += 1;
                 toast("added to reading");
-                
+
             }
+        },
+        finishReading: (state, action: PayloadAction<IBook>)=>{
+            const existing = state.books.find((book) => book._id === action.payload._id);
+            existing.finished=true;
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { addToReading } = listSlice.actions;
+export const { addToReading,finishReading } = listSlice.actions;
 
 export default listSlice.reducer;

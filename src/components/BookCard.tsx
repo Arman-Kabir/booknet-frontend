@@ -3,28 +3,32 @@ import { Card, CardContent, CardHeader, } from "./ui/card";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { addToWishlist } from "@/redux/features/wishlist/listSlice";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-import { useAppDispatch } from "@/redux/hooks";
-import { addToReading } from "@/redux/features/reading/readingSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { addToReading, finishReading } from "@/redux/features/reading/readingSlice";
 
 interface IProps {
     book: IBook
 }
 
 const BookCard = ({ book }: IProps) => {
-    // const dispatch = useDispatch();
+    const { books: wishlist_books, total: wishlist_total } = useAppSelector((state) => state.list);
+    const { books: reading_books, total: reading_total } = useAppSelector((state) => state.reading);
     const dispatch = useAppDispatch();
-    console.log(book);
+    // console.log(book);
+
+    console.log(wishlist_books, wishlist_total);
+    console.log(reading_books, reading_total);
 
     const handleAddToWishlist = (book: IBook) => {
         dispatch(addToWishlist(book));
-        // toast("book added to wishlist");
     }
 
     const handleAddToReadinglist = (book: IBook) => {
         dispatch(addToReading(book));
-        // toast("book added to reading list");
+    }
+
+    const markFinishReading = (book: IBook) => {
+        dispatch(finishReading(book));
     }
     return (
         <Card className="">
@@ -45,12 +49,41 @@ const BookCard = ({ book }: IProps) => {
 
             </CardContent>
             <div className="flex justify-around ">
-                <Button onClick={() => handleAddToWishlist(book)} className="text-red-300 px-2">
-                    Add to wishlist
-                </Button>
-                <Button onClick={() => handleAddToReadinglist(book)} className="text-red-300 px-2">
+                {
+                    wishlist_books.find((w_book) => w_book._id === book._id) ? (
+                        <Button className="text-red-300 px-2">
+                            Wishlisted
+                        </Button>
+                    ) : (
+                        <Button onClick={() => handleAddToWishlist(book)} className="text-red-300 px-2">
+                            Add to wishlist
+                        </Button>
+                    )
+                }
+                {
+                    reading_books.find((r_book) => r_book._id === book._id) ?
+
+                        reading_books.find((r_book) => r_book._id === book._id && r_book.finished) ?
+                            (
+                                <Button className="text-red-300 px-2">
+                                    Finished
+                                </Button>
+                            )
+                            :
+                            (
+                                <Button onClick={() => markFinishReading(book)} className="text-red-300 px-2">
+                                    Mark Finished Readinglist
+                                </Button>
+                            )
+
+                        :
+                        <Button onClick={() => handleAddToReadinglist(book)} className="text-red-300 px-2">
+                            Add to Readinglist
+                        </Button>
+                }
+                {/* <Button onClick={() => handleAddToReadinglist(book)} className="text-red-300 px-2">
                     Add to Readinglist
-                </Button>
+                </Button> */}
             </div>
 
         </Card>

@@ -24,7 +24,7 @@ export const listSlice = createSlice({
             if (existing) {
                 toast("already added");
                 // console.log("already added");
-                // toast({ title: "already added" })
+                
             } else {
                 state.books.push({ ...action.payload });
                 state.total += 1;

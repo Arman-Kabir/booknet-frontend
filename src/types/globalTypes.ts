@@ -7,5 +7,6 @@ export interface IBook{
     image:string;
     reviews:string[];
     added_by:string | null;
+    finished?:boolean;
 
 }
