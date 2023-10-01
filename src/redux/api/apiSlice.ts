@@ -10,6 +10,19 @@ export const api = createApi({
         getSingleBook: builder.query({
             query: (id: string) => `/books/${id}`,
         }),
+        postComment: builder.mutation({
+            query: ( {id, data} ) => {
+                // Log the 'data' to check if it's passed or not
+                console.log('Data:', data);
+
+                return {
+                    url: `/comment/${id}`,
+                    method: "PATCH",
+                    body:data
+                };
+            }
+        }),
+
         postBook: builder.mutation({
             query: (data) => ({
                 url: `/books`,
@@ -17,14 +30,14 @@ export const api = createApi({
                 body: data
             })
         }),
-        editBook:builder.mutation({
-            query:({id,data})=>({
-                url:`/books/${id}`,
-                method:'POST',
-                body:data
+        editBook: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/books/${id}`,
+                method: 'POST',
+                body: data
             })
         })
     })
 });
 
-export const { useGetBooksQuery, useGetSingleBookQuery, usePostBookMutation,useEditBookMutation } = api;
+export const { useGetBooksQuery, useGetSingleBookQuery, usePostBookMutation, useEditBookMutation, usePostCommentMutation } = api;

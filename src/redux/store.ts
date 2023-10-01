@@ -21,14 +21,16 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
     reducer: persistedReducer,
+        
     // {
     //     // list: listSlice,
     //     // reading: readingSlice,
-    //     // [api.reducerPath]: api.reducer
+    //    // [api.reducerPath]: api.reducer
     // },
 
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(api.middleware),
+    
 });
 
 
@@ -37,4 +39,4 @@ export type AppDispatch = typeof store.dispatch
 
 const persistor = persistStore(store);
 
-export  { store, persistor };
+export { store, persistor };

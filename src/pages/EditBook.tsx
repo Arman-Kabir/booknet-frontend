@@ -49,26 +49,26 @@ const EditBook = () => {
 
           <div className="flex  items-center">
             <p className="text-xl font-semibold text-indigo-500">Title</p>
-            <input placeholder={data?.title} className="border-2 w-1/2 block mx-auto" {...register("title", { required: true })} />
+            <input placeholder={data?.title} className="border-2 w-1/2 block mx-auto" {...register("title")} />
           </div>
 
           <div className="flex  items-center">
             <p className="text-xl font-semibold text-indigo-500">Author</p>
-            <input placeholder={data?.author} className="border-2 w-1/2 block mx-auto" {...register("author", { required: true })} />
+            <input placeholder={data?.author} className="border-2 w-1/2 block mx-auto" {...register("author", )} />
           </div>
 
           <div className="flex  items-center">
             <p className="text-xl font-semibold text-indigo-500">Genre</p>
-            <input placeholder={data?.genre} className="border-2 w-1/2 block mx-auto"  {...register("genre", { required: true })} />
+            <input placeholder={data?.genre} className="border-2 w-1/2 block mx-auto"  {...register("genre",)} />
           </div>
           <div className="flex  items-center">
             <p className="text-xl font-semibold text-indigo-500">Image Url</p>
-            <input placeholder={data?.image} className="border-2 w-1/2 block mx-auto"  {...register("image", { required: true })} />
+            <input placeholder={data?.image} className="border-2 w-1/2 block mx-auto"  {...register("image", )} />
           </div>
 
           <div className="flex  items-center">
             <p className="text-xl font-semibold text-indigo-500">Publication Date</p>
-            <input placeholder={data?.publication_date} className="border-2 w-1/2 block mx-auto" type="number" {...register("publication_date", { required: true })} />
+            <input placeholder={data?.publication_date} className="border-2 w-1/2 block mx-auto" type="number" {...register("publication_date", )} />
           </div>
         </div>
 

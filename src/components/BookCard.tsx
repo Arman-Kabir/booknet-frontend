@@ -81,9 +81,7 @@ const BookCard = ({ book }: IProps) => {
                             Add to Readinglist
                         </Button>
                 }
-                {/* <Button onClick={() => handleAddToReadinglist(book)} className="text-red-300 px-2">
-                    Add to Readinglist
-                </Button> */}
+               
             </div>
 
         </Card>
