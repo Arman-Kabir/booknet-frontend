@@ -5,38 +5,48 @@ import { Link, useParams } from "react-router-dom";
 import { Input } from "@/components/ui/input"
 import { ChangeEvent, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import DeleteConfirmationDialog from "./DeleteConfirm";
 
-interface IFormInput{
-  review:string
+interface IFormInput {
+  review: string
 }
 
 const BookDetails = () => {
+  const [isDialogVisible, setDialogVisible] = useState(false);
   const { register, handleSubmit } = useForm<IFormInput>();
   const { id } = useParams();
-  
+
   const { data, isLoading } = useGetSingleBookQuery(id);
   const [postComment] = usePostCommentMutation();
-  
 
   if (isLoading) {
     return <div className="bg-zinc-500">Loading...</div>
   }
   const book = data;
-
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    // console.log(data);
-    // console.log(user?.email);
-    // data.added_by = user?.email;
-    const options={
-      id:id,
-      data:data
+    const options = {
+      id: id,
+      data: data
     }
     console.log(options);
     const result = await postComment(options);
     console.log(result);
   };
 
-  
+  const handleDeleteClick = () => {
+    setDialogVisible(true);
+  };
+
+  const handleCancelClick = () => {
+    setDialogVisible(false);
+  };
+
+  const handleConfirmDelete = () => {
+    // Add your book deletion logic here
+    // You can make an API call to delete the book and update the UI accordingly
+    // After successful deletion, close the dialog
+    setDialogVisible(false);
+  };
 
   return (
     <div className="flex max-w-6xl bg-slate-500 h-screen mx-auto">
@@ -62,16 +72,24 @@ const BookDetails = () => {
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
 
-              <input placeholder='comment' className="border-2 w-1/2 block mx-auto" {...register("review")} />
-           
+            <input placeholder='comment' className="border-2 w-1/2 block mx-auto" {...register("review")} />
+
             <input className="hover:text-white border-2 block mx-auto my-5 bg-indigo-200 px-5 py-1 shadow-lg rounded-lg hover:bg-indigo-700 focus:ring-2" type="submit" />
           </form>
         </div>
-        <div>
+        <div className=" flex justify-center space-x-3">
           <Link to={`/edit-book/${book?._id}`}> <Button variant="outline" className="text-black">Edit Book</Button>
           </Link>
-          <Link to={`/login`}> <Button variant="outline" className="text-black">Delete Book</Button>
-          </Link>
+          <div>
+            <Button onClick={handleDeleteClick} variant="destructive" className="text-black">Delete Book</Button>
+
+            <DeleteConfirmationDialog
+              show={isDialogVisible}
+              onCancel={handleCancelClick}
+              onConfirm={handleConfirmDelete}
+            />
+          </div>
+
         </div>
 
       </div>
