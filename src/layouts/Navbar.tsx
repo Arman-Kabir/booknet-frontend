@@ -34,8 +34,12 @@ export default function Navbar() {
                             <Link to={`/addnew-book`}><Button variant="outline" className="text-black">Add New Book</Button></Link>
                         </div>
                         :
-                        <Link to={`/login`}> <Button variant="outline" className="text-black">Login</Button>
-                        </Link>
+                        <div className="flex space-x-2">
+                            <Link to={`/signup`}> <Button variant="outline" className="text-black">SignUp</Button>
+                            </Link>
+                            <Link to={`/signin`}> <Button variant="outline" className="text-black">SignIn</Button>
+                            </Link>
+                        </div>
                 }
             </div>
 

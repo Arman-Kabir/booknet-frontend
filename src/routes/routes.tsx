@@ -4,7 +4,9 @@ import AllBooks from "@/pages/AllBooks";
 import BookDetails from "@/pages/BookDetails";
 import EditBook from "@/pages/EditBook";
 import Home from "@/pages/Home";
-import Login from "@/pages/Login";
+import SignIn from "@/pages/SignIn";
+import Login from "@/pages/SignIn";
+import SignUp from "@/pages/SignUp";
 import { createBrowserRouter } from "react-router-dom";
 
 
@@ -30,8 +32,12 @@ const routes = createBrowserRouter([
                 element:<AddNewBook></AddNewBook>
             },
             {
-                path:'/login',
-                element:<Login></Login>
+                path:'/signin',
+                element:<SignIn></SignIn>
+            },
+            {
+                path:'/signup',
+                element:<SignUp></SignUp>
             },
             {
                 path:'/edit-book/:id',

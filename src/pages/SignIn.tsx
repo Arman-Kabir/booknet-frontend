@@ -5,7 +5,7 @@ import { getAuth, onAuthStateChanged,  GoogleAuthProvider, signInWithPopup } fro
 import { Link, NavLink, Navigate, redirect, useNavigate } from "react-router-dom";
 import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
-const Login = () => {
+const SignIn = () => {
     const navigate = useNavigate();
 
     const auth = getAuth(app);
@@ -26,4 +26,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default SignIn;
