@@ -2,22 +2,27 @@
 import AllBooks from "@/pages/AllBooks";
 import BookCard from "@/components/BookCard";
 import { IBook } from "@/types/globalTypes";
-import { useEffect, } from "react";
+import { useEffect, useState, } from "react";
 import { useGetBooksQuery } from "@/redux/api/apiSlice";
 
 function Home() {
+    const [recentBooks,setResentBooks] = useState(['']);
     const { data, refetch, isLoading, error } = useGetBooksQuery(undefined);
     console.log(data);
+
+    // let recentBooks;
 
     const handleRefetch = () => {
         refetch();
     };
     useEffect(() => {
         handleRefetch();
+        setResentBooks(data.slice(-10).reverse());
+        console.log(recentBooks);
     }, []);
 
 
-    const recentBooks = data.slice(-10).reverse();
+    // const recentBooks = data.slice(-10).reverse();
     console.log(recentBooks);
 
     return (
