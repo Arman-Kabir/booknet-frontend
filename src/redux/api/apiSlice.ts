@@ -5,7 +5,8 @@ export const api = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5009' }),
     endpoints: (builder) => ({
         getBooks: builder.query({
-            query: () => '/books'
+            query: () => '/books',
+            providesTags: ['deletion'],
         }),
         getSingleBook: builder.query({
             query: (id: string) => `/books/${id}`,
@@ -15,7 +16,6 @@ export const api = createApi({
             query: ( {id, data} ) => {
                 // Log the 'data' to check if it's passed or not
                 console.log('Data:', data);
-
                 return {
                     url: `/comment/${id}`,
                     method: "PATCH",
@@ -38,8 +38,15 @@ export const api = createApi({
                 method: 'POST',
                 body: data
             })
+        }),
+        deleteBook: builder.mutation({
+            query: (id) => ({
+                url: `/books/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['deletion'],
         })
     })
 });
 
-export const { useGetBooksQuery, useGetSingleBookQuery, usePostBookMutation, useEditBookMutation, usePostCommentMutation } = api;
+export const { useGetBooksQuery, useGetSingleBookQuery, usePostBookMutation, useEditBookMutation, usePostCommentMutation,useDeleteBookMutation } = api;

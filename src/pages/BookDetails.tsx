@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { useGetSingleBookQuery, usePostCommentMutation } from "@/redux/api/apiSlice";
+import { useDeleteBookMutation, useGetSingleBookQuery, usePostCommentMutation } from "@/redux/api/apiSlice";
 import { IBook } from "@/types/globalTypes";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { Input } from "@/components/ui/input"
 import { ChangeEvent, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import DeleteConfirmationDialog from "./DeleteConfirm";
+import { toast } from "react-toastify";
 
 interface IFormInput {
   review: string
@@ -15,10 +16,11 @@ const BookDetails = () => {
   const [isDialogVisible, setDialogVisible] = useState(false);
   const { register, handleSubmit } = useForm<IFormInput>();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { data, isLoading } = useGetSingleBookQuery(id);
   const [postComment] = usePostCommentMutation();
-
+  const [deleteBook] =useDeleteBookMutation();
   if (isLoading) {
     return <div className="bg-zinc-500">Loading...</div>
   }
@@ -41,10 +43,14 @@ const BookDetails = () => {
     setDialogVisible(false);
   };
 
-  const handleConfirmDelete = () => {
-    // Add your book deletion logic here
-    // You can make an API call to delete the book and update the UI accordingly
-    // After successful deletion, close the dialog
+  const handleConfirmDelete = async () => {
+    console.log(id);
+    const result =  await deleteBook(id);
+    console.log(result);
+    if(result){
+      toast("Book deleted successfully");
+      navigate("/all-books");
+    }    
     setDialogVisible(false);
   };
 
