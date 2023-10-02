@@ -17,7 +17,7 @@ export default function Navbar() {
     return (
         <div className="w-full px-20 bg-neutral-950 text-white h-16 flex justify-between">
             <div className="flex items-center">
-                <h1 className="font-bold text-3xl text-purple-600 ">Book-Net</h1>
+                <Link to={'/'}><h1 className="font-bold text-3xl text-purple-600">Book-Net</h1></Link>
             </div>
             <div className="flex items-center	">
                 <ul className="flex">
