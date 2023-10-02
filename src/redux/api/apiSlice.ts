@@ -9,6 +9,7 @@ export const api = createApi({
         }),
         getSingleBook: builder.query({
             query: (id: string) => `/books/${id}`,
+            providesTags: ['comments'],
         }),
         postComment: builder.mutation({
             query: ( {id, data} ) => {
@@ -20,7 +21,8 @@ export const api = createApi({
                     method: "PATCH",
                     body:data
                 };
-            }
+            },
+            invalidatesTags: ['comments'],
         }),
 
         postBook: builder.mutation({
