@@ -55,7 +55,7 @@ const BookCard = ({ book }: IProps) => {
                             Wishlisted
                         </Button>
                     ) : (
-                        <Button onClick={() => handleAddToWishlist(book)} className="text-red-300 px-2">
+                        <Button onClick={() => handleAddToWishlist(book)} className="text-red-300 px-0">
                             Add to wishlist
                         </Button>
                     )
@@ -71,13 +71,13 @@ const BookCard = ({ book }: IProps) => {
                             )
                             :
                             (
-                                <Button onClick={() => markFinishReading(book)} className="text-red-300 px-2">
-                                    Mark Finished Readinglist
+                                <Button onClick={() => markFinishReading(book)} className="text-red-300 px-0">
+                                    Mark Finish Reading
                                 </Button>
                             )
 
                         :
-                        <Button onClick={() => handleAddToReadinglist(book)} className="text-red-300 px-2">
+                        <Button onClick={() => handleAddToReadinglist(book)} className="text-red-300 px-0">
                             Add to Readinglist
                         </Button>
                 }

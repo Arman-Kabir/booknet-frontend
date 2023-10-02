@@ -2,31 +2,34 @@
 import AllBooks from "@/pages/AllBooks";
 import BookCard from "@/components/BookCard";
 import { IBook } from "@/types/globalTypes";
-import { useEffect, useState } from "react";
+import { useEffect, } from "react";
+import { useGetBooksQuery } from "@/redux/api/apiSlice";
 
 function Home() {
-    // const [data, setData] = useState<IBook[]>([]);
-    // console.log(data);
-    // const booksData = data?.data;
+    const { data, refetch, isLoading, error } = useGetBooksQuery(undefined);
+    console.log(data);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    
-    // console.log(booksData);
+    const handleRefetch = () => {
+        refetch();
+    };
+    useEffect(() => {
+        handleRefetch();
+    }, []);
 
 
-    // useEffect(() => {
-    //     fetch('http://localhost:5001/api/v1/books')
-    //         .then((res) => res.json())
-    //         .then((data: IBook[]) => setData(data))
-    //         .catch((error) => {
-    //             console.log('Error fetching data', error)
-    //         })
-    // }, []);
+    const recentBooks = data.slice(-10).reverse();
+    console.log(recentBooks);
 
     return (
-        <div className="w-9/12 mx-auto">
+        <div className="max-w-7xl mx-auto">
             <h2 className="p-5 text-center text-4xl text-purple-600 font-black">Recently Added Books</h2>
-            {/* <AllBooks books={booksData}></AllBooks> */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
+                {
+                    recentBooks?.map((book: IBook) => (
+                        <BookCard key={book._id} book={book}></BookCard>
+                    ))
+                }
+            </div>
         </div>
     )
 }

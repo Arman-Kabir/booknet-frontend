@@ -6,7 +6,7 @@ export const api = createApi({
     endpoints: (builder) => ({
         getBooks: builder.query({
             query: () => '/books',
-            providesTags: ['deletion'],
+            providesTags: ['deletion','unique_tag_for_getBooks'],
         }),
         getSingleBook: builder.query({
             query: (id: string) => `/books/${id}`,

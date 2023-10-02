@@ -8,8 +8,14 @@ import { FormEvent, useState } from "react";
 function AllBooks() {
   const [inputValue,setInputValue] = useState<string>('');
   console.log(inputValue);
-  const { data, isLoading, error } = useGetBooksQuery(undefined);
+  const { data,refetch, isLoading, error } = useGetBooksQuery(undefined);
   console.log(data);
+
+  const handleRefetch = () => {
+    refetch();
+  };
+  // handleRefetch();
+
   if (isLoading) {
     return <p>Loading...</p>
   }

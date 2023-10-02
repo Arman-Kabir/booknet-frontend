@@ -106,5 +106,15 @@
     "image": "https://m.media-amazon.com/images/I/4123PVMNEDL._AC_UF1000,1000_QL80_.jpg",
     "reviews":["a great product","very good service","Unbelievable"],
     "added_by": ""
+  },
+  {
+    "title": "Living in the Light2",
+    "author": "David Sargent2",
+    "genre": "self-improvement",
+    "publication_date": "2011",
+    "image": "https://m.media-amazon.com/images/I/4123PVMNEDL._AC_UF1000,1000_QL80_.jpg",
+    "reviews":["a great product","very good service","Unbelievable"],
+    "added_by": "",
+    "createdAt": new Date(),
   }
 ]
