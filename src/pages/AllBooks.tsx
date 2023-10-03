@@ -8,6 +8,8 @@ import { app } from "@/firebase-config";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
+import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider"
 
 const auth = getAuth(app);
 
@@ -51,20 +53,40 @@ function AllBooks() {
   }
 
   const handleAddNewBook = () => {
-    if(user){
+    if (user) {
       navigate('/addnew-book');
-    }else{
+    } else {
       navigate("/signin")
       toast("Sign In First to Add New book")
     }
   }
+  const handleSlider = (value: number[]) => {
+    // dispatch(setPriceRange(value[0]));
+    console.log(value);
+  };
 
   return (
     <div>
       <div className="">
-        <div className="flex justify-center">
-          <input className="border-2 w-1/3 p-2 rounded-lg" type="text" name="" id="" onKeyUp={searchKey} />
-          <span className="p-3 bg-indigo-300 rounded-lg">Search</span>
+        <div className="flex justify-center items-center space-x-6">
+          <div>
+            <input className="border-2 w-[200px] p-2 rounded-lg" type="text" name="" id="" onKeyUp={searchKey} />
+            <span className="p-3 bg-indigo-300 rounded-lg">Search</span>
+          </div>
+          <div className="w-[50px]">
+            <Switch></Switch>
+          </div>
+          <div className="w-[100px]">
+            <Slider
+              defaultValue={[150]}
+              max={150}
+              min={0}
+              step={1}
+              onValueChange={(value) => handleSlider(value)}
+            />
+          </div>
+          <div>From 0$ To {/*priceRange*/}$</div>
+
         </div>
         <Button onClick={handleAddNewBook}>
           Add New Book
