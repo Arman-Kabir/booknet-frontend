@@ -4,6 +4,7 @@ import { usePostBookMutation } from "@/redux/api/apiSlice"
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const auth = getAuth(app);
 
@@ -30,7 +31,11 @@ const AddNewBook = () => {
         data.added_by = user?.email;
         // console.log(data);
         const result = await postBook(data);
-        console.log(result);
+        if(result.data.result.insertedId){
+            toast("book inserted successfully")
+        }else{
+            "book Not inserted"
+        }
     };
 
     return (

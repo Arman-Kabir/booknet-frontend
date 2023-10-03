@@ -32,6 +32,9 @@ const SignIn = () => {
         if(result?.user.email){
             toast("User Signin in successfully");
             navigate('/');
+        }else{
+            toast("signUp First");
+            navigate('/signup');
         }
     };
 
@@ -41,6 +44,8 @@ const SignIn = () => {
 
                 <div className="h-2/6 flex flex-col items-center justify-center">
                     <div className="max-w-2xl mx-auto ">
+
+                        <h1 className="text-center my-5 text-2xl font-bold">Sign IN Page</h1>
 
                         <div className="flex  items-center space-x-2">
                             <p className="text-xl font-semibold text-indigo-500 w-[100px]">Email</p>

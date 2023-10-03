@@ -27,9 +27,9 @@ const SignUp = () => {
 
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         console.log(data);
-        
-        const result = await createUserWithEmailAndPassword(data.email,data.password);
-        if(result?.user.email){
+
+        const result = await createUserWithEmailAndPassword(data.email, data.password);
+        if (result?.user.email) {
             toast("User created successfullt! Now Login");
             navigate('/signin');
         }
@@ -41,6 +41,8 @@ const SignUp = () => {
 
                 <div className="h-2/6 flex flex-col items-center justify-center">
                     <div className="max-w-2xl mx-auto ">
+
+                        <h1 className="text-center my-5 text-2xl font-bold">Sign UP Page</h1>
 
                         <div className="flex  items-center space-x-2">
                             <p className="text-xl font-semibold text-indigo-500 w-[100px]">Email</p>
