@@ -6,6 +6,7 @@ import readingSlice from './features/reading/readingSlice';
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage';
 import persistStore from 'redux-persist/es/persistStore';
+import bookSlice from './features/books/bookSlice';
 
 const persistConfig = {
     key: 'root',
@@ -14,6 +15,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     list: listSlice,
     reading: readingSlice,
+    book:bookSlice,
     [api.reducerPath]: api.reducer
 })
 

@@ -10,18 +10,25 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
 import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider"
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { setPriceRange, setYearRange, toggleState } from "@/redux/features/books/bookSlice";
 
 const auth = getAuth(app);
 
 function AllBooks() {
   const [inputValue, setInputValue] = useState<string>('');
+  const { yearRange, status } = useAppSelector((state) => state.book);
+  const dispatch = useAppDispatch();
   console.log(inputValue);
+  console.log(yearRange, status);
 
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
   const { data, refetch, isLoading, error } = useGetBooksQuery(undefined);
   console.log(data);
+
+
 
   const handleRefetch = () => {
     refetch();
@@ -61,31 +68,44 @@ function AllBooks() {
     }
   }
   const handleSlider = (value: number[]) => {
-    // dispatch(setPriceRange(value[0]));
+    dispatch(setYearRange(value[0]));
     console.log(value);
   };
+
+  if (status) {
+    books = data?.filter(
+      (item: { status: boolean; price: number }) =>
+        item.status === true && item.publication_date < yearRange
+    );
+  } else if (yearRange > 0) {
+    books = data?.filter(
+      (item: { price: number }) => item.publication_date < yearRange
+    );
+  } else {
+    books = data;
+  }
 
   return (
     <div>
       <div className="">
         <div className="flex justify-center items-center space-x-6">
           <div>
-            <input className="border-2 w-[200px] p-2 rounded-lg" type="text" name="" id="" onKeyUp={searchKey} />
+            <input className="border-2 w-[200px] p-2 rounded-lg" placeholder="title,author, genre....." type="text" name="" id="" onKeyUp={searchKey} />
             <span className="p-3 bg-indigo-300 rounded-lg">Search</span>
           </div>
-          <div className="w-[50px]">
+          <div onClick={() => dispatch(toggleState())} className="w-[50px]">
             <Switch></Switch>
           </div>
           <div className="w-[100px]">
             <Slider
-              defaultValue={[150]}
-              max={150}
-              min={0}
+              defaultValue={[2016]}
+              max={2018}
+              min={2002}
               step={1}
               onValueChange={(value) => handleSlider(value)}
             />
           </div>
-          <div>From 0$ To {/*priceRange*/}$</div>
+          <div>From 2002 To {yearRange}</div>
 
         </div>
         <Button onClick={handleAddNewBook}>
