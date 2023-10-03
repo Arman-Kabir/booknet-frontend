@@ -12,21 +12,23 @@ import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setPriceRange, setYearRange, toggleState } from "@/redux/features/books/bookSlice";
+import SelectComponent from "@/components/SelectComponent";
 
 const auth = getAuth(app);
 
 function AllBooks() {
   const [inputValue, setInputValue] = useState<string>('');
-  const { yearRange, status } = useAppSelector((state) => state.book);
+
+  const { yearRange, status, genre } = useAppSelector((state) => state.book);
   const dispatch = useAppDispatch();
-  console.log(inputValue);
-  console.log(yearRange, status);
+  // console.log(inputValue);
+  console.log(yearRange, status, genre);
 
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
   const { data, refetch, isLoading, error } = useGetBooksQuery(undefined);
-  console.log(data);
+  // console.log(data);
 
 
 
@@ -85,6 +87,12 @@ function AllBooks() {
     books = data;
   }
 
+  if (genre) {
+    books = data?.filter((item) =>
+      item.genre === genre
+    );
+  }
+
   return (
     <div>
       <div className="">
@@ -93,6 +101,11 @@ function AllBooks() {
             <input className="border-2 w-[200px] p-2 rounded-lg" placeholder="title,author, genre....." type="text" name="" id="" onKeyUp={searchKey} />
             <span className="p-3 bg-indigo-300 rounded-lg">Search</span>
           </div>
+
+          <div>
+            <SelectComponent></SelectComponent>
+          </div>
+
           <div onClick={() => dispatch(toggleState())} className="w-[50px]">
             <Switch></Switch>
           </div>

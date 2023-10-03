@@ -16,8 +16,8 @@ const BookCard = ({ book }: IProps) => {
     const dispatch = useAppDispatch();
     // console.log(book);
 
-    console.log(wishlist_books, wishlist_total);
-    console.log(reading_books, reading_total);
+    // console.log(wishlist_books, wishlist_total);
+    // console.log(reading_books, reading_total);
 
     const handleAddToWishlist = (book: IBook) => {
         dispatch(addToWishlist(book));
