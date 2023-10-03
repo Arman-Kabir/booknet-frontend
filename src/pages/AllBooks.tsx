@@ -2,13 +2,23 @@ import { IBook } from "@/types/globalTypes";
 import { useGetBooksQuery } from "@/redux/api/apiSlice";
 import BookCard from "../components/BookCard";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
+import { app } from "@/firebase-config";
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
+
+const auth = getAuth(app);
 
 function AllBooks() {
-  const [inputValue,setInputValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>('');
   console.log(inputValue);
-  const { data,refetch, isLoading, error } = useGetBooksQuery(undefined);
+
+  const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  const { data, refetch, isLoading, error } = useGetBooksQuery(undefined);
   console.log(data);
 
   const handleRefetch = () => {
@@ -29,15 +39,24 @@ function AllBooks() {
     setInputValue(event.target.value);
   }
 
-  if(inputValue){
-    
-    books = books.filter((book)=>(
+  if (inputValue) {
+
+    books = books.filter((book) => (
       book.title.toLowerCase().includes(inputValue.toLowerCase()) ||
       book.author.toLowerCase().includes(inputValue.toLowerCase()) ||
       book.genre.toLowerCase().includes(inputValue.toLowerCase())
     ))
 
     console.log(books);
+  }
+
+  const handleAddNewBook = () => {
+    if(user){
+      navigate('/addnew-book');
+    }else{
+      navigate("/signin")
+      toast("Sign In First to Add New book")
+    }
   }
 
   return (
@@ -47,8 +66,8 @@ function AllBooks() {
           <input className="border-2 w-1/3 p-2 rounded-lg" type="text" name="" id="" onKeyUp={searchKey} />
           <span className="p-3 bg-indigo-300 rounded-lg">Search</span>
         </div>
-        <Button>
-          <Link to={'/addnew-book'}>Add New Book</Link>
+        <Button onClick={handleAddNewBook}>
+          Add New Book
         </Button>
       </div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 pt-6">
