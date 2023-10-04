@@ -43,6 +43,8 @@
 
 // export { store, persistor };
 
+// redux-persist was showing errors while hosting which i couldn't solve then tried using local storage
+
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { api } from './api/apiSlice';
 import listSlice from './features/wishlist/listSlice';
