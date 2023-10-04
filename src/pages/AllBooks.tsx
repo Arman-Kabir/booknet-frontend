@@ -64,63 +64,62 @@ function AllBooks() {
   };
 
   if (data) {
-    if (status) {
-      books = books.filter(
-        (item) =>
-          // console.log(item)
-          status === true && item.publication_date < yearRange
-      );
-    } else if (yearRange > 0) {
-      books = books.filter(
-        (item: { publication_date: number }) => item.publication_date < yearRange
-      );
-    }
-  }
-
-  if (genre) {
-    books = books?.filter((item) =>
-      item.genre === genre
+    books = books.filter(
+      (item) =>
+        // console.log(item)
+        item.publication_date < yearRange
+    );
+  } else if (yearRange > 0) {
+    books = books.filter(
+      (item: { publication_date: number }) => item.publication_date < yearRange
     );
   }
+}
 
-  return (
-    <div>
-      <div className="">
-        <div className="flex justify-center items-center space-x-6">
-          <div>
-            <input className="border-2 w-[200px] p-2 rounded-lg" placeholder="title,author, genre....." type="text" name="" id="" onChange={searchKey} />
-            <span className="p-3 bg-indigo-300 rounded-lg">Search</span>
-          </div>
+if (genre) {
+  books = books?.filter((item) =>
+    item.genre === genre
+  );
+}
 
-          <div>
-            <SelectComponent></SelectComponent>
-          </div>
-
-          <div className="w-[100px]">
-            <Slider
-              defaultValue={[2016]}
-              max={2018}
-              min={2002}
-              step={1}
-              onValueChange={(value) => handleSlider(value)}
-            />
-          </div>
-          <div>From 2002 To {yearRange}</div>
-
+return (
+  <div>
+    <div className="">
+      <div className="flex justify-center items-center space-x-6">
+        <div>
+          <input className="border-2 w-[200px] p-2 rounded-lg" placeholder="title,author, genre....." type="text" name="" id="" onChange={searchKey} />
+          <span className="p-3 bg-indigo-300 rounded-lg">Search</span>
         </div>
-        <Button onClick={handleAddNewBook}>
-          Add New Book
-        </Button>
+
+        <div>
+          <SelectComponent></SelectComponent>
+        </div>
+
+        <div className="w-[100px]">
+          <Slider
+            defaultValue={[2016]}
+            max={2018}
+            min={2002}
+            step={1}
+            onValueChange={(value) => handleSlider(value)}
+          />
+        </div>
+        <div>From 2002 To {yearRange}</div>
+
       </div>
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 pt-6">
-        {/* ALl Books */}
-        {books?.map((book: IBook) => (
-          // console.log(book);
-          <BookCard book={book} key={book._id}></BookCard>
-        ))}
-      </div>
+      <Button onClick={handleAddNewBook}>
+        Add New Book
+      </Button>
     </div>
-  )
+    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 pt-6">
+      {/* ALl Books */}
+      {books?.map((book: IBook) => (
+        // console.log(book);
+        <BookCard book={book} key={book._id}></BookCard>
+      ))}
+    </div>
+  </div>
+)
 }
 
 export default AllBooks;
