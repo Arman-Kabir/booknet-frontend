@@ -1,29 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import AllBooks from "@/pages/AllBooks";
 import BookCard from "@/components/BookCard";
 import { IBook } from "@/types/globalTypes";
 import { useEffect, useState, } from "react";
 import { useGetBooksQuery } from "@/redux/api/apiSlice";
 
 function Home() {
-    const [recentBooks,setResentBooks] = useState(['']);
+    const [recentBooks, setRecentBooks] = useState<IBook[]>([]);
     const { data, refetch, isLoading, error } = useGetBooksQuery(undefined);
     console.log(data);
 
-    // let recentBooks;
-
-    const handleRefetch = () => {
-        refetch();
+    const handleRefetch =async () => {
+        await refetch();
     };
     useEffect(() => {
-        handleRefetch();
-        setResentBooks(data.slice(-10).reverse());
-        console.log(recentBooks);
-    }, []);
+        void handleRefetch();
+        if (data) {
+            setRecentBooks(data?.slice(-10).reverse());
+        }
+        // console.log(recentBooks);
+    }, [data]);
 
 
     // const recentBooks = data.slice(-10).reverse();
-    console.log(recentBooks);
+    // console.log(recentBooks);
 
     return (
         <div className="max-w-7xl mx-auto">
@@ -33,7 +32,7 @@ function Home() {
                     recentBooks?.map((book: IBook) => (
                         <BookCard key={book._id} book={book}></BookCard>
                     ))
-                }
+              }
             </div>
         </div>
     )

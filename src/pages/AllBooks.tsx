@@ -2,46 +2,35 @@ import { IBook } from "@/types/globalTypes";
 import { useGetBooksQuery } from "@/redux/api/apiSlice";
 import BookCard from "../components/BookCard";
 import { Button } from "@/components/ui/button";
-import { Link, useNavigate } from "react-router-dom";
-import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FormEvent, useEffect, useState } from "react";
 import { app } from "@/firebase-config";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
-import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { setPriceRange, setYearRange, toggleState } from "@/redux/features/books/bookSlice";
+import { setYearRange } from "@/redux/features/books/bookSlice";
 import SelectComponent from "@/components/SelectComponent";
 
 const auth = getAuth(app);
 
 function AllBooks() {
-  const [inputValue, setInputValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string | null>('');
 
-  const { yearRange, status, genre } = useAppSelector((state) => state.book);
+  const { yearRange, genre } = useAppSelector((state) => state.book);
   const dispatch = useAppDispatch();
   // console.log(inputValue);
-  console.log(yearRange, status, genre);
+  console.log(yearRange, genre);
 
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const navigate = useNavigate();
 
-  const { data, refetch, isLoading, error } = useGetBooksQuery(undefined);
+  const { data, refetch, isLoading } = useGetBooksQuery(undefined);
   // console.log(data);
-
-
-
-  const handleRefetch = () => {
-    refetch();
-  };
-  // handleRefetch();
 
   if (isLoading) {
     return <p>Loading...</p>
-  }
-  if (error) {
-    // return <div>Error:{error}</div>
   }
   let books = data as IBook[];
 
@@ -58,7 +47,7 @@ function AllBooks() {
       book.genre.toLowerCase().includes(inputValue.toLowerCase())
     ))
 
-    console.log(books);
+    // console.log(books);
   }
 
   const handleAddNewBook = () => {
@@ -74,21 +63,22 @@ function AllBooks() {
     console.log(value);
   };
 
-  if (status) {
-    books = data?.filter(
-      (item: { status: boolean; price: number }) =>
-        item.status === true && item.publication_date < yearRange
-    );
-  } else if (yearRange > 0) {
-    books = data?.filter(
-      (item: { price: number }) => item.publication_date < yearRange
-    );
-  } else {
-    books = data;
+  if (data) {
+    if (status) {
+      books = books.filter(
+        (item) =>
+          // console.log(item)
+          status === true && item.publication_date < yearRange
+      );
+    } else if (yearRange > 0) {
+      books = books.filter(
+        (item: { publication_date: number }) => item.publication_date < yearRange
+      );
+    }
   }
 
   if (genre) {
-    books = data?.filter((item) =>
+    books = books?.filter((item) =>
       item.genre === genre
     );
   }
@@ -98,7 +88,7 @@ function AllBooks() {
       <div className="">
         <div className="flex justify-center items-center space-x-6">
           <div>
-            <input className="border-2 w-[200px] p-2 rounded-lg" placeholder="title,author, genre....." type="text" name="" id="" onKeyUp={searchKey} />
+            <input className="border-2 w-[200px] p-2 rounded-lg" placeholder="title,author, genre....." type="text" name="" id="" onChange={searchKey} />
             <span className="p-3 bg-indigo-300 rounded-lg">Search</span>
           </div>
 
@@ -106,9 +96,6 @@ function AllBooks() {
             <SelectComponent></SelectComponent>
           </div>
 
-          <div onClick={() => dispatch(toggleState())} className="w-[50px]">
-            <Switch></Switch>
-          </div>
           <div className="w-[100px]">
             <Slider
               defaultValue={[2016]}

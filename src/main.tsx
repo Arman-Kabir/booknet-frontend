@@ -15,9 +15,9 @@ import { persistStore, persistReducer } from 'redux-persist';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      {/* <PersistGate persistor={persistor}> */}
         <RouterProvider router={routes} />
-      </PersistGate>
+      {/* </PersistGate> */}
     </Provider>
   </React.StrictMode>,
 )
