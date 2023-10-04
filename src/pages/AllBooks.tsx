@@ -74,7 +74,7 @@ function AllBooks() {
       (item: { publication_date: number }) => item.publication_date < yearRange
     );
   }
-}
+
 
 if (genre) {
   books = books?.filter((item) =>
@@ -120,6 +120,6 @@ return (
     </div>
   </div>
 )
-}
+      }
 
 export default AllBooks;
