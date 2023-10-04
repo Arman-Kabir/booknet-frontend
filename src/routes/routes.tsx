@@ -4,6 +4,7 @@ import AllBooks from "@/pages/AllBooks";
 import BookDetails from "@/pages/BookDetails";
 import EditBook from "@/pages/EditBook";
 import Home from "@/pages/Home";
+import NotFound from "@/pages/NotFound";
 import SignIn from "@/pages/SignIn";
 import Login from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
@@ -42,6 +43,10 @@ const routes = createBrowserRouter([
             {
                 path:'/edit-book/:id',
                 element:<EditBook></EditBook>
+            },
+            {
+                path:'*',
+                element:<NotFound></NotFound>
             },
 
         ]
