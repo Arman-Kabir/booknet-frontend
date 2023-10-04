@@ -30,7 +30,7 @@ const SignIn = () => {
         
         const result = await signInWithEmailAndPassword(data.email,data.password);
         if(result?.user.email){
-            navigate(-1);
+            navigate("/all-books");
             toast("User Signin in successfully");
         }else{
             toast("signUp First");
